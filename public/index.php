@@ -49,62 +49,84 @@ $categs = $ct->all();
     <div class="container">
         <h1 class="text-center">Blog</h1>
         <div class="row">
-	
+		<div class="divider"></div>
+			<div class="section">
+				<h5>Vos Articles</h5>
             <?php foreach($posts as $post): ?>
                 <div class="col-md-4">
                     <h2><?= $post['title'] ?></h2>
                     <p><?= $post['content'] ?></p>
 					<p><?= $post['cat_title'] ?></p>
 					<form method="POST" action="action/action_post_modif.php">
-						<label for="modif-tit">Titre : </label><input type="text" name="modif-tit" id="titre" placeholder="Entrez le nouveau 							titre..." maxlength="50" /><br />
-						<label for="contenu">contenu : </label><br /><textarea name="modif-con" id="contenu" placeholder="Entrez le nouveau 							contenu..."></textarea><br />
-						<select name="modif-cat"><?php foreach($categs as $categ): ?><option value="<?= $categ['id'] ?>"><?= $categ['title'] ?></option><?php endforeach; ?></select>
+						<label for="modif-tit">Titre : </label><input type="text" name="modif-tit" id="titre" placeholder="Entrez le nouveau titre..." maxlength="50" /><br />
+						<label for="contenu">contenu : </label><br /><textarea name="modif-con" id="icon_prefix2" class="materialize-textarea" placeholder="Entrez le nouveau contenu..."></textarea><br />
+						<select name="modif-cat"><option value="" disabled selected>Choose your new categorie</option><?php foreach($categs as $categ): ?><option value="<?= $categ['id'] ?>"><?= $categ['title'] ?></option><?php endforeach; ?></select>
 	    				<input name="ind" type="hidden" value="<?php echo $post['id'] ;?>">
-            			<input type="submit" value="modifier" />
+            			<input type="submit" class="btn btn-primary" value="modifier" />
 					</form>
 					<form method="POST" action="action/action_post_delete.php">
 						<input name="id" type="hidden" value="<?php echo $post['id'] ;?>">
-            			<input type="submit" value="supprimer" />
+            			<input type="submit" class="btn btn-primary" value="supprimer" />
 					</form>
                 </div>
             <?php endforeach; ?>
         </div>
-        <h1>Add a Post</h1>
+		</div>
+		<div class="divider"></div>
+			<div class="section">
+				<h5>Add a Post</h5>
         <div class="row">
             <form action="" method="POST">
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" name="title">
+                    <input type="text" class="form-control" name="title" placeholder="Entrez le titre..." maxlength="50">
                 </div>
 				<div class="form-group">
                     <label for="categorie">categorie</label>
-					<select name="id_cat"><?php foreach($categs as $categ): ?><option value="<?= $categ['id'] ?>"><?= $categ['title'] ?></option><?php endforeach; ?></select>
+					<div class="input-field col s12">
+					<select name="id_cat"><option value="" disabled selected>Choose your categorie</option><?php foreach($categs as $categ): ?><option value="<?= $categ['id'] ?>"><?= $categ['title'] ?></option><?php endforeach; ?></select>
+				</div>
                 </div>
-                <div class="form-group">
+                  <div class="form-group">
                     <label for="title">Content</label>
-                    <textarea class="form-control" name="content"></textarea>
+                    <textarea id="icon_prefix2" class="materialize-textarea" name="content" placeholder="Entrez le contenu..." maxlength="50"></textarea>
                 <input type="submit" class="btn btn-primary" value="ajouter">
             </form>
         </div>
-		
-		<h1>Ajouter ou supprimer une categorie</h1>
+		</div>
+
+
+		<div class="divider"></div>
+			<div class="section">
+				<h5>Ajouter ou supprimer une categorie</h5>
         <div class="row">
             <form action="form_cat.php" method="POST">
 				<div class="form-group">
                     <label for="categorie">categorie</label>
-                    <input type="text" class="form-control" name="categorie">
+                    <input type="text" class="form-control" name="categorie" placeholder="Entrez la nouvelle categorie..." maxlength="50">
 					<input type="submit" class="btn btn-primary" value="ajouter">
                 </div>
             </form>
+		
+<script>document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, []);
+  });
+</script>
 			<form action="delete_cat.php" method="POST">
 				<div class="form-group">
                     <label for="categorie">sélectionner la categorie a supprimer</label>
-                    <select name="sup_cat"><?php foreach($categs as $categ): ?><option value="<?= $categ['id'] ?>"><?= $categ['title'] ?></option><?php endforeach; ?></select>
+				<div class="input-field col s12">
+                    <select name="sup_cat"><option value="" disabled selected>Choose your categorie</option><?php foreach($categs as $categ): ?><option value="<?= $categ['id'] ?>"><?= $categ['title'] ?></option><?php endforeach; ?></select>
+				</div></br></br>
 					<input type="submit" class="btn btn-primary" value="supprimer">
                 </div>
             </form>
         </div>
+		</div>
     </div>
-	</div>
 </body>
+
+          
 </html>
+
